@@ -1,26 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useState} from 'react';
 import './App.css';
+import {Todolist} from "./Todolist";
+
+export type FilterButtonName = "All" | "Active" | "Completed"
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+    const header = "What to learn"
+
+    let [task, setTask] = useState([
+        {id:1, title: "HTML", isDone: true},
+        {id:2, title: "CSS", isDone: true},
+        {id:3, title: "JavaScript", isDone: false},
+        {id:3, title: "React", isDone: false}
+    ])
+
+    const removeTask = (id: number) => {
+        task = task.filter(el => el.id !== id)
+        setTask(task)
+    }
+
+    return (
+        <div className="App">
+            <Todolist header={header}
+                      tasks={task}
+                      removeTask={removeTask} />
+        </div>
+    );
 }
 
 export default App;
